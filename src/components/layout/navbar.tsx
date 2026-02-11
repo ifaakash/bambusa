@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 export function Navbar() {
@@ -7,9 +8,16 @@ export function Navbar() {
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 <Link
                     href="/"
-                    className="text-2xl font-bold tracking-tighter text-charcoal hover:text-bamboo transition-colors"
+                    className="flex items-center gap-2 transition-opacity hover:opacity-80"
                 >
-                    Moso
+                    <Image
+                        src="/images/logo.png"
+                        alt="Bambusa Logo"
+                        width={120}
+                        height={40}
+                        className="h-10 w-auto object-contain"
+                        priority
+                    />
                 </Link>
                 <div className="flex items-center gap-4">
                     <Button variant="secondary" size="sm" asChild>

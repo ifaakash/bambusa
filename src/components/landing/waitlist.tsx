@@ -4,20 +4,30 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
+import { submitWaitlist } from "@/app/actions"
 
 export function Waitlist() {
-    const [email, setEmail] = useState("")
     const [loading, setLoading] = useState(false)
     const [submitted, setSubmitted] = useState(false)
+    const [message, setMessage] = useState("")
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
+    const handleSubmit = async (formData: FormData) => {
         setLoading(true)
-        // Simulate API call
-        setTimeout(() => {
+        setMessage("")
+
+        try {
+            const result = await submitWaitlist(formData)
+
+            if (result.success) {
+                setSubmitted(true)
+            } else {
+                setMessage(result.message || "Something went wrong.")
+            }
+        } catch (error) {
+            setMessage("An unexpected error occurred. Please try again.")
+        } finally {
             setLoading(false)
-            setSubmitted(true)
-        }, 1500)
+        }
     }
 
     return (
@@ -40,7 +50,7 @@ export function Waitlist() {
                         Join the Club
                     </h2>
                     <p className="text-gray-400 mb-8 text-lg">
-                        Be the first to experience Moso. Get exclusive early access and a special launch discount.
+                        Be the first to experience Bambusa. Get exclusive early access and a special launch discount.
                     </p>
 
                     {submitted ? (
@@ -53,13 +63,12 @@ export function Waitlist() {
                             <p className="text-gray-300">Keep an eye on your inbox. We'll be in touch soon.</p>
                         </motion.div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                        <form action={handleSubmit} className="flex flex-col sm:flex-row gap-3">
                             <input
                                 type="email"
+                                name="email"
                                 placeholder="Enter your email address"
                                 required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
                                 className="flex-1 px-6 py-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-bamboo transition-all"
                             />
                             <Button
@@ -71,6 +80,16 @@ export function Waitlist() {
                                 {loading ? <Loader2 className="animate-spin" /> : "Join Waitlist"}
                             </Button>
                         </form>
+                    )}
+
+                    {message && !submitted && (
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="mt-4 text-red-400 text-sm bg-red-900/20 p-2 rounded-lg inline-block"
+                        >
+                            {message}
+                        </motion.p>
                     )}
 
                     <p className="mt-6 text-sm text-gray-500">

@@ -63,7 +63,7 @@ export function Features() {
                     <div className="grid grid-cols-3 p-6 border-b border-gray-100 bg-gray-50/50 text-sm font-bold text-charcoal">
                         <div>Feature</div>
                         <div className="text-center text-gray-400">Regular Cotton</div>
-                        <div className="text-center text-bamboo">Moso Bamboo</div>
+                        <div className="text-center text-bamboo">Bambusa Bamboo</div>
                     </div>
                     {[
                         { label: "Odor Control", old: false, new: true },

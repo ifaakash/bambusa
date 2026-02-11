@@ -12,10 +12,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import { siteConfig } from "@/config";
+
 export const metadata: Metadata = {
-  title: "Moso | Premium Bamboo Socks",
-  description: "Engineered for comfort. Made in India. 7-Day Freshness Guarantee.",
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
 };
+
+import { UmamiAnalytics } from "@/components/analytics/umami";
 
 export default function RootLayout({
   children,
@@ -27,6 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <UmamiAnalytics />
         {children}
       </body>
     </html>

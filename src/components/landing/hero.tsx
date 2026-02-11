@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowRight, BadgeCheck, IndianRupee, Truck } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export function Hero() {
     return (
@@ -60,6 +61,18 @@ export function Hero() {
                             <IndianRupee className="h-4 w-4 text-bamboo" />
                             <span>Cash on Delivery</span>
                         </div>
+                    </div>
+
+                    <div className="pt-16 relative">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-b from-bamboo/5 to-transparent rounded-full blur-3xl -z-10" />
+                        <Image
+                            src="/images/mockup_1.png"
+                            alt="Bambusa Socks Mockup"
+                            width={1000}
+                            height={1000}
+                            className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl border border-gray-100/50"
+                            priority
+                        />
                     </div>
                 </motion.div>
             </div>
